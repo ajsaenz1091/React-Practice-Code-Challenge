@@ -1,20 +1,31 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 const Sushi = (props) => {
+  
+  const [boolean, setBoolean] = useState(false)
+
+  const handleClick = () => {
+   if(props.sushi.price <= props.budget) {
+     setBoolean(true)
+     props.updateBudget(props.sushi.price)
+    }else{
+      alert("You're broke!")
+    }
+  }
   return (
     <div className="sushi">
       <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
+           onClick={handleClick}>
         { 
           /* Tell me if this sushi has been eaten! */ 
-          false ?
+          boolean ?
             null
           :
-            <img src={/* Give me an image source! */ } width="100%" />
+            <img src={props.sushi.img_url} width="100%" />
         }
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {props.sushi.name} - ${props.sushi.price}
       </h4>
     </div>
   )
